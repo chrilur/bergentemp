@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="utf-8" />
+    <title>Bergenstempen</title>
+    <script type="text/javascript" src="http://multimedia.bt.no/krinkelkroken/templates/charts/javascript/jquery-1.8.2.min.js"></script>
+    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.0.min.js"></script>-->
+    <script type="text/javascript" src="data/temps.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+    <style type='text/css'>
+ 			#container {
+   				 background: url();
+					}
+ 	</style>
+<script>
+        
+    var farger = ['#2b8cbe', '#a6bddb', '#ece7f2'];
+    
+    Highcharts.setOptions({
+            global: 
+                {
+                    timezoneOffset: -60
+                },
+        
+            lang: {
+                decimalPoint: ",",
+                months: ["januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember"],
+            shortMonths: ["jan." , "feb." , "mar." , "apr." , "mai" , "jun." , "jul." , "aug." , "sep." , "okt." , "nov." , "des."],
+            weekdays: ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"]
+            
+        }},
+        {
+				colors: farger
+			}); 
+			var chart;
+			$(document).ready(function() 
+			{
+				chart = new Highcharts.Chart(
+				{
+					chart: {
+						renderTo: 'container',
+                        backgroundColor: 'transparent',
+						type: 'line',
+						spacingBottom: 0,
+						marginRight: 30,
+						marginBottom: 40,
+                        },
+					credits : {
+						enabled : false
+					},
+					title: {
+						text: 'Bergenstempen',
+					},
+          subtitle: {
+  					text: 'Fra nyttår til i dag'
+					},
+                    
+					xAxis: {
+                        type: 'datetime',
+                        },
+                    
+                        plotOptions: {
+                    series: {
+                            pointStart: Date.UTC(2016, 0, 1),
+                            pointInterval: 3600 * 1000,
+                            lineWidth: 3        
+                    }},
+                    
+                    
+				   	
+					yAxis: { 
+						startOnTick: false,
+						minPadding: 0,
+						gridLineWidth: 1,
+						<!-- lineWidth: 0, -->
+						title: {
+							text: 'Temperatur',
+							align: 'high'
+						},
+                    
+                     tooltip: {
+                        xDateFormat: '%D-%m-%y',
+                        shared: true,
+                        valueSuffix: ' &deg;C'}, 
+                    
+                    plotLines : [{
+					value : 0,
+					color : 'red',
+					dashStyle : 'shortdash',
+					width : 2
+					}],
+                    },
+					series: [temps]
+                   
+				});
+			});
+
+</script>
+</head>
+<body style='margin:20px;padding:0px;'>
+   
+    <div id="container" style="min-width: 100px; height: 400px; margin: 0 auto"></div> 
+</body>
+</html>
